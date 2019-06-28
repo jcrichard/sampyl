@@ -181,6 +181,26 @@ def bernoulli(k, p):
 
     return binomial(k, 1, p)
 
+def nbinomial(y,mu ,r=1):
+     """ negative binomial distribution log-likelihood. 
+
+        :param k: *int, np.array.* Number of successes.
+        :param p: *int, float, np.array.* Success probability.
+
+        .. math ::
+            \log{P(x; r)} \propto x\log{p} + \
+                                            r\log{(1 - p)}
+    """
+
+    if fails_constraints(r > 0):
+        return -np.inf
+ 
+     
+    p = mu / (mu + r)
+ 
+    return np.sum(r * np.log(1 - p) + y * np.log(p)  ) 
+
+
 
 def beta(x, alpha=1, beta=1):
     """ Beta distribution log-likelihood.
